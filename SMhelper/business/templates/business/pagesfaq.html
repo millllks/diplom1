@@ -1,0 +1,263 @@
+{% extends 'business/basic.html' %}
+
+{% load static %}
+{% block script-modal %}
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        let btns = document.querySelectorAll("*[data-modal-btn]");
+
+    for (let i = 0; i < btns.length; i++) {
+      btns[i].addEventListener('click', function () {
+        let name = btns[i].getAttribute('data-modal-btn');
+        let modal = document.querySelector("[data-modal-window='" + name + "']");
+        modal.style.display = "block";
+      });
+    }
+
+    window.onclick = function (event) {
+      if (event.target.hasAttribute('data-modal-window')) {
+        let modals = document.querySelectorAll('*[data-modal-window]');
+        for (let i = 0; i < modals.length; i++) {
+          modals[i].style.display = "none";
+        }
+      }
+    }
+    });
+
+    const form = document.forms["form"];
+const formArr = Array.from(form);
+const validFormArr = [];
+const button = form.elements["button"];
+
+formArr.forEach((el) => {
+  if (el.hasAttribute("data-reg")) {
+    el.setAttribute("is-valid", "0");
+    validFormArr.push(el);
+  }
+});
+
+form.addEventListener("input", inputHandler);
+button.addEventListener("click", buttonHandler);
+
+function inputHandler({ target }) {
+  if (target.hasAttribute("data-reg")) {
+    inputCheck(target);
+  }
+}
+
+function inputCheck(el) {
+  const inputValue = el.value;
+  const inputReg = el.getAttribute("data-reg");
+  const reg = new RegExp(inputReg);
+  if (reg.test(inputValue)) {
+    el.setAttribute("is-valid", "1");
+    el.style.borderBottom = "1px solid rgb(0, 196, 0)";
+  } else {
+    el.setAttribute("is-valid", "0");
+    el.style.borderBottom = "1px solid rgb(255, 0, 0)";
+  }
+}
+
+function buttonHandler(e) {
+  const allValid = [];
+  validFormArr.forEach((el) => {
+    allValid.push(el.getAttribute("is-valid"));
+  });
+  const isAllValid = allValid.reduce((acc, current) => {
+    return acc && current;
+  });
+
+  if (!Boolean(Number(isAllValid))) {
+    e.preventDefault();
+  }
+}с
+</script>
+{% endblock %}
+
+{% block header %}
+        <header class="header__services _container">
+            <a href="{% url 'main' %}" class="header__logo">SM Helper</a>
+                <ul class="menu__list">
+                    <li class="menu__item">
+                        <a href="{% url 'main' %}" class="_menu__links menu__link">О компании</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="{% url 'services' %}" class="_menu__links menu__link">Услуги</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="{% url 'faq' %}" class="_menu__links menu__link">FAQ</a>
+                    </li>
+                </ul>
+                <div class="header__tel">
+                    <a href="tel: +79094025992">+7 (909) 402-59-92</a>
+                </div>
+                <div class="burger-menu">
+                    <a href="#" class="burger-menu__button">
+                        <span class="burger-menu__lines"></span>
+                    </a>
+                    <nav class="burger-menu__nav">
+                        <a href="{% url 'main' %}" class="burger-menu__link">О компании</a>
+                        <a href="{% url 'services' %}" class="burger-menu__link">Услуги</a>
+                        <a href="{% url 'faq' %}" class="burger-menu__link">FAQ</a>
+                        <a href="#contacts" class="burger-menu__link">Контакты</a>
+                    </nav>
+                    <div class="burger-menu__overlay"></div>
+                </div>
+        </header>
+{% endblock %}
+
+{% block main-faq %}
+        <main>
+            <div class="faq__container">
+                <div class="faq__content">
+                    <div class="faq__title">
+                        <div class="title__name">Частые вопросы специалистам</div>
+                        <hr class="hr-line">
+                    </div>
+                    <div class="main__text-content-page main__content_text">
+                        Юристы “SM Helper”, при непрерывном опыте ведения бизнеса на протяжении 7 лет, часто
+                        встречаются со стандартными вопросами, которые возникают у большого количества компаний.
+                         Специалисты нашей фирмы выделили проблемы, с которыми регулярно встречаются клиенты.
+                         На каждый вопрос мы подготовили ответ, с которым Вы можете ознакомиться ниже и применить
+                          его в решении спорного момента для своего бизнеса.
+                    </div>
+                </div>
+                 <img src="{% static 'business/image/faq-image.jpg' %}" alt="photo from the faq page">
+            </div>
+            <div class="main-block__content _container">
+                <div class="spoiler_wrap">
+                    <input type="checkbox" class="toggle">
+                    <div class="spoiler_title">Какие документы необходимы для открытия ИП?</div>
+                    <div class="icon"></div>
+                    <div class="border"></div>
+                    <div class="spoiler_content">
+                        <div class="spoiler__items">Оригинал паспорта</div>
+                        <div class="spoiler__items">Копии всех страниц паспорта</div>
+                        <div class="spoiler__items">Заполненное <a href="https://www.nalog.ru/rn77/related_activities/registration_ip_yl/registration_ip/order/4162994/">заявление</a> о госрегистрации физлица в качестве ИП (форма № Р21001)</div>
+                        <div class="spoiler__items">Квитанция об уплате госпошлины с помощью <a href="https://service.nalog.ru/gp2.do">сервиса</a> на сайте ФНС можно сформировать квитанцию для ее оплаты в любом банке или же оплатить онлайн</div>
+                        <div class="spoiler__items">Дополнительные документы, если в качестве индивидуального предпринимателя регистрируется несовершеннолетний в возрасте от 14 до 18 лет</div>
+                    </div>
+                </div>
+                <div class="spoiler_wrap">
+                    <input type="checkbox" class="toggle">
+                    <div class="spoiler_title">Как открыть ИП или ООО без сбора документов и оплаты госпошлины?</div>
+                    <div class="icon"></div>
+                    <div class="border"></div>
+                    <div class="spoiler_content">
+                        <div class="spoiler__items">Посетите один из государственных центров «Мой Бизнес» в своем регионе</div>
+                    </div>
+                </div>
+                <div class="spoiler_wrap">
+                    <input type="checkbox" class="toggle">
+                    <div class="spoiler_title">Какую систему налогообложения выбрать ИП?</div>
+                    <div class="icon"></div>
+                    <div class="border"></div>
+                    <div class="spoiler_content">
+                        <div class="spoiler__items">Все зависит от того какие задачи стоят перед вами.
+                            Планируете ли вы нанимать сотрудников или ведете бизнес самостоятельно
+                            Какой процент налога для вас наиболее приемлем и т.д. <br>
+                        </div>
+                        <div class="spoiler__items">Вот некоторые системы налогообложения: <br></div>
+                        <div class="spoiler__items">НПД или самозанятость — это налог на профессиональный доход, специальный налоговый режим. Он подходит и для
+                            физических лиц без статуса ИП — обычно их называют самозанятыми, и для ИП — тогда говорят, что ИП работает на НПД или называют его
+                            ИП-самозанятым.</div>
+                        <div class="spoiler__items">УСН <a href="https://www.nalog.ru/rn03/taxation/taxes/usn/">упрощенная система налогообложения</a>. Можно платить налог с дохода или с разницы между доходами и расходами. Нужно заранее посчитать,
+                            что выгоднее для конкретного вида деятельности. В середине года сменить объект налогообложения не получится. Есть ограничения по обороту, количеству сотрудников и видам деятельности. Декларация — раз в год.</div>
+                        <div class="spoiler__items">ЕНВД <a href="https://www.nalog.ru/rn03/taxation/taxes/envd/">единый налог на вмененный доход </a>. Налог нужно платить не от фактического дохода, а от вмененного. Государство как будто само
+                            заранее посчитало, сколько налогов нужно заплатить с конкретной площади магазина или определенного количества торговых точек. Этот спецрежим можно применять вместе с другими. Чтобы перейти на него, подают заявление в
+                            налоговую, но такой режим налогообложения введен не везде. Декларация — каждый квартал.</div>
+                        <div class="spoiler__items">ПСН <a href="https://www.nalog.ru/rn03/taxation/taxes/patent/">патентная система налогообложения</a>. Она тоже есть не во всех регионах и не для всех видов деятельности. Суть системы состоит
+                             в покупке патента на конкретный вид деятельности на несколько месяцев или год. Тогда налог тоже не зависит от фактического дохода. Например, ИП покупает патент для химчистки или парикмахерской и платит за него
+                             фиксированную сумму двумя платежами. Даже если на самом деле доход будет больше, доплачивать не придется. Отчетности нет вообще, но право на патент легко потерять, если просрочить очередную оплату. На сайте ФНС
+                             есть <a href="https://patent.nalog.ru/info/">калькулятор</a>, который поможет заранее рассчитать стоимость патента.</div>
+                        <div class="spoiler__items">ЕСХН <a href="https://www.nalog.ru/rn77/ip/ip_pay_taxes/esn/">единый сельскохозяйственный налог</a>. Это спецрежим для определенных отраслей — например, агрофирм. Заменяет налог на прибыль,
+                            имущество и НДС. Налог платят два раза в год, а декларацию сдают по итогам года.</div>
+                </div>
+                <div class="spoiler_wrap">
+                    <input type="checkbox" class="toggle">
+                    <div class="spoiler_title">Обязателен ли устав для ООО?</div>
+                    <div class="icon"></div>
+                    <div class="border"></div>
+                    <div class="spoiler_content">
+                        <div class="spoiler__items">Устав является обязательным документом при регистрации и ведении деятельности юридического лица. Следовательно, ООО не сможет существовать, если не разработает и утвердит собственный устав.</div>
+                        <div class="spoiler__items">Ст.12 Федеральный закон от 08.02.1998 N 14-ФЗ "Об обществах с ограниченной ответственностью"</div>
+                </div>
+                <div class="spoiler_wrap">
+                    <input type="checkbox" class="toggle">
+                    <div class="spoiler_title">Что такое устав для ООО И где его взять?</div>
+                    <div class="icon"></div>
+                    <div class="border"></div>
+                    <div class="spoiler_content">
+                        <div class="spoiler__items">Устав — учредительный документ, описывающий особенности существования этой организации и взаимодействия её участников. Учредители, в роли которых могут выступать как физические, так и юридические
+                            лица, составляют документ ещё до официальной регистрации бизнеса.</div>
+                        <div class="spoiler__items">Вы можете обратиться за разработкой устава в нашу юридическую компанию или взять <a href="https://www.moedelo.org/Pro/View/Legals/97-425972765008#regl_phr7?utm_source=zen&utm_medium=referral&utm_campaign=article&utm_content=moedelo_org-07022022">типовой устав</a>
+                             разработанный министерством экономического развития</div>
+                </div>
+                <div class="spoiler_wrap">
+                    <input type="checkbox" class="toggle">
+                    <div class="spoiler_title">Что такое ОКВЭД и зачем он нужен?</div>
+                    <div class="icon"></div>
+                    <div class="border"></div>
+                    <div class="spoiler_content">
+                        <div class="spoiler__items">ОКВЭД расшифровывается как Общероссийский классификатор видов экономической деятельности. Это перечень кодов и пояснений к ним, которые обозначают, чем будет заниматься организация или ИП.
+                            Коды указывают в заявлении при регистрации бизнеса. Если этого не сделать, налоговая служба откажется принять заявление.</div>
+                    </div>
+                </div>
+                <div class="spoiler_wrap">
+                    <input type="checkbox" class="toggle">
+                    <div class="spoiler_title">Как взыскать долг через ФССП России?</div>
+                    <div class="icon"></div>
+                    <div class="border"></div>
+                    <div class="spoiler_content">
+                        <div class="spoiler__items">Если вы задаетесь этим вопросом, значит вы уже знаете, что вернуть свое ни так уж просто.
+                            Для начала вам необходимо посетить отделение службы судебных приставов в котором находится ваше исполнительное производство и поинтересоваться какие действия были предприняты в рамках исполнительного производства.
+                            Если в рамках исполнительного производства судебный пристав-исполнитель установил, что за должником числится имущество, то необходимо написать заявление или ходатайство о наложении ареста на имущества,
+                             а также наложении запрета действий по регистрации.</div>
+                    </div>
+                </div>
+                <div class="spoiler_wrap">
+                    <input type="checkbox" class="toggle">
+                    <div class="spoiler_title">Можно ли за низкую плату взять в аренду офис в г. Ростов-на-Дону?</div>
+                    <div class="icon"></div>
+                    <div class="border"></div>
+                    <div class="spoiler_content">
+                        <div class="spoiler__items">Да,это можно сделать и бесплатно. Для этого обратитесь в центр «Мой Бизнес».</div>
+                    </div>
+                </div>
+            </div>
+            <button data-modal-btn="modal1" class="button button__entry">
+                    ЗАПИСАТЬСЯ НА КОНСУЛЬТАЦИЮ
+            </button>
+        </main>
+{% endblock %}
+
+{% block modalka %}
+<div  data-modal-window="modal1" class="modal">
+        <div class="modal__window">
+
+            <form method="post" class="modal__form" id="form__entry" name="form">
+                {% csrf_token %}
+                <div class="modal__title">Получить консультацию специалиста</div>
+                <div class="form__group">
+                    {{ forms.customer }}
+                    <label class="form__lable">Как к Вам обращаться?</label>
+                </div>
+                <div class="form__group">
+                    {{ forms.phone }}
+                    <label class="form__lable"  placeholder="">Укажите номер телефона</label>
+                </div>
+
+                <div class="form__group">
+                    {{ forms.email }}
+                    <label class="form__lable">Укажите почту</label>
+                </div>
+                <button type="submit" id="button" class="form__button">Отправить</button>
+                 <span>{{ errors }}</span>
+            </form>
+            <div class="modal__img">
+               <img src="{% static 'business/image/request-modal.png' %}" alt="photo from the modal window">
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

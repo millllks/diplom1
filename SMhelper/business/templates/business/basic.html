@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:description"  content="Компания предоставляет качественные услуги в области права. У Вашей компании может появиться свой юрист высокой квалификации. Юридические услуги. Услуги в области права. Свой юрист. Юрист Ростов.">
+    <meta property="og:locale" content="ru" />
+    <title>SM Helper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400&display=swap" rel="stylesheet">
+    {% load static %}
+    {% block style-swiper %} {% endblock %}
+    {% block script-modal %} {% endblock %}
+    <link rel="stylesheet" href="{% static 'business/style/style.css' %}?2023068778000" />
+</head>
+<body>
+    <div class="wrapper">
+        {% block header %} {% endblock %}
+
+        {% block main %} {% endblock %}
+
+        {% block main-services %} {% endblock %}
+
+        {% block main-faq %} {% endblock %}
+
+        <footer class="footer">
+            <div class="footer__container" id="contacts">
+                <div class="footer__content _container">
+                    <div class="footer__item">Адрес: г.Ростов-на-Дону, ул.М.Горького, 151</div>
+                    <div class="footer__item">Режим работы: пн-пт 10.00 - 20.00</div>
+                    <a  href="tel: +79094025992" class="footer__item">Телефон: +7 909 402 59 92</a>
+                    <p><a href="mailto:sm-helper.ru@yandex.ru" class="footer__item">Email: sm-helper.ru@yandex.ru</a></p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    {% block modalka %} {% endblock %}
+<div  data-modal-window="modal1" class="modal">
+        <div class="modal__window">
+
+            <form method="post" class="modal__form" id="form__entry" name="form">
+                {% csrf_token %}
+                <div class="modal__title">Получить консультацию специалиста</div>
+                <div class="form__group">
+                    {{ forms.customer }}
+                    <label class="form__lable">Как к Вам обращаться?</label>
+                </div>
+                <div class="form__group">
+                    {{ forms.phone }}
+                    <label class="form__lable"  placeholder="">Укажите номер телефона</label>
+                </div>
+
+                <div class="form__group">
+                    {{ forms.email }}
+                    <label class="form__lable">Укажите почту</label>
+                </div>
+                <button type="submit" id="button" class="form__button">Отправить</button>
+            </form>
+            <div class="modal__img">
+               <img src="{% static 'business/image/request-modal.png' %}" alt="photo from the modal window">
+            </div>
+
+        </div>
+    </div>
+    {% block modal-review %} {% endblock %}
+
+
+
+</body>
+{% block script-swiper %} {% endblock %}
+<script src="{% static 'business/script/jquary--3.7.0.js' %}"></script>
+<script src="{% static 'business/script/js.js' %}?55848"></script>
+</html>

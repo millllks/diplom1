@@ -1,0 +1,258 @@
+{% extends 'business/basic.html' %}
+
+{% load static %}
+{% block script-modal %}
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        let btns = document.querySelectorAll("*[data-modal-btn]");
+
+    for (let i = 0; i < btns.length; i++) {
+      btns[i].addEventListener('click', function () {
+        let name = btns[i].getAttribute('data-modal-btn');
+        let modal = document.querySelector("[data-modal-window='" + name + "']");
+        modal.style.display = "block";
+        let close = modal.querySelector(".form__button");
+        close.addEventListener('click', function () {
+            alert('Форма отправлена успешно')
+      });
+      });
+    }
+
+    window.onclick = function (event) {
+      if (event.target.hasAttribute('data-modal-window')) {
+        let modals = document.querySelectorAll('*[data-modal-window]');
+        for (let i = 0; i < modals.length; i++) {
+          modals[i].style.display = "none";
+        }
+      }
+    }
+    });
+
+    const form = document.forms["form"];
+const formArr = Array.from(form);
+const validFormArr = [];
+const button = form.elements["button"];
+
+formArr.forEach((el) => {
+  if (el.hasAttribute("data-reg")) {
+    el.setAttribute("is-valid", "0");
+    validFormArr.push(el);
+  }
+});
+
+form.addEventListener("input", inputHandler);
+button.addEventListener("click", buttonHandler);
+
+function inputHandler({ target }) {
+  if (target.hasAttribute("data-reg")) {
+    inputCheck(target);
+  }
+}
+
+function inputCheck(el) {
+  const inputValue = el.value;
+  const inputReg = el.getAttribute("data-reg");
+  const reg = new RegExp(inputReg);
+  if (reg.test(inputValue)) {
+    el.setAttribute("is-valid", "1");
+    el.style.borderBottom = "1px solid rgb(0, 196, 0)";
+  } else {
+    el.setAttribute("is-valid", "0");
+    el.style.borderBottom = "1px solid rgb(255, 0, 0)";
+  }
+}
+
+function buttonHandler(e) {
+  const allValid = [];
+  validFormArr.forEach((el) => {
+    allValid.push(el.getAttribute("is-valid"));
+  });
+  const isAllValid = allValid.reduce((acc, current) => {
+    return acc && current;
+  });
+
+  if (!Boolean(Number(isAllValid))) {
+    e.preventDefault();
+  }
+}
+</script>
+{% endblock %}
+
+{% block header %}
+        <header class="header__services _container">
+            <a href="{% url 'main' %}" class="header__logo">SM Helper</a>
+                <ul class="menu__list">
+                    <li class="menu__item">
+                        <a href="{% url 'main' %}" class="_menu__links menu__link">О компании</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="{% url 'services' %}" class="_menu__links menu__link">Услуги</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="{% url 'faq' %}" class="_menu__links menu__link">FAQ</a>
+                    </li>
+                </ul>
+                <div class="header__tel">
+                    <a href="tel: +79094025992">+7 (909) 402-59-92</a>
+                </div>
+                <div class="burger-menu">
+                    <a href="#" class="burger-menu__button">
+                        <span class="burger-menu__lines"></span>
+                    </a>
+                    <nav class="burger-menu__nav">
+                        <a href="{% url 'main' %}" class="burger-menu__link">О компании</a>
+                        <a href="{% url 'services' %}" class="burger-menu__link">Услуги</a>
+                        <a href="{% url 'faq' %}" class="burger-menu__link">FAQ</a>
+                        <a href="#contacts" class="burger-menu__link">Контакты</a>
+                    </nav>
+                    <div class="burger-menu__overlay"></div>
+                </div>
+        </header>
+{% endblock %}
+
+{% block main-services %}
+        <main>
+            <div class="services__contentH">
+                <img src="{% static 'business/image/services-image.png' %}" alt="photo from the services page">
+                <div class="services__content">
+                    <div class="setvices__title">
+                        <div class="title__name">Услуги компании</div>
+                        <hr class="hr-line">
+                    </div>
+                    <div class="main__text-content-page main__content_text">
+                        Юридическая компания "SM Helper" специализируется на предоставлении
+                        экспертных услуг для Вашего бизнеса в области права любой сложности.
+                        На данный момент в работе у квалифицированных специалистов находится
+                        21 компания, в том числе 4 иностранных. После передачи дел Вашего
+                        бизнеса на сопровождение нашим юристам, Вы будете экономить свое время,
+                        которое сможете перенаправить на улучшение показателей Вашей фирмы,
+                        и повысить доходы. При этом получите профессиональные решения и
+                        качественное ведение дел от специалистов с опытом.
+                    </div>
+                </div>
+            </div>
+            <div class="main-block__content _container">
+                <div class="spoiler_wrap">
+                    <input type="checkbox" class="toggle">
+                    <div class="spoiler_title">Создание и регистрация юридического лица или ИП</div>
+                    <div class="icon"></div>
+                    <div class="border"></div>
+                    <div class="spoiler_content">
+                        <div class="spoiler__items">Составление и заполнение заявления в налоговый орган</div>
+                        <div class="spoiler__items">Составление и утверждение устава для юридического лица</div>
+                        <div class="spoiler__items">Выбор системы налогообложения для вашего бизнеса</div>
+                    </div>
+                </div>
+                <div class="spoiler_wrap">
+                    <input type="checkbox" class="toggle">
+                    <div class="spoiler_title">Ликвидация юридического лица или ИП</div>
+                    <div class="icon"></div>
+                    <div class="border"></div>
+                    <div class="spoiler_content">
+                        <div class="spoiler__items">Cоставление протокола общего собрания участников</div>
+                        <div class="spoiler__items">Предоставление в налоговую необходимых форм для ликвидации ЮЛ</div>
+                        <div class="spoiler__items">Размещение сообщения в СМИ</div>
+                        <div class="spoiler__items">Увольнение сотрудников</div>
+                        <div class="spoiler__items">Уведомление кредиторов</div>
+                        <div class="spoiler__items">Закрытие расчетных счетов в банках</div>
+                        <div class="spoiler__items">Подача промежуточного и ликвидационного баланса в налоговую</div>
+                        <div class="spoiler__items">Уничтожение печати</div>
+                    </div>
+                </div>
+                <div class="spoiler_wrap">
+                    <input type="checkbox" class="toggle">
+                    <div class="spoiler_title">Анализ и составление юридической документации организации </div>
+                    <div class="icon"></div>
+                    <div class="border"></div>
+                    <div class="spoiler_content">
+                        <div class="spoiler__items">Аудит текущего состояния документов Вашего бизнеса с письменным отчетом</div>
+                        <div class="spoiler__items">Корректировка имеющихся документов </div>
+                </div>
+                <div class="spoiler_wrap">
+                    <input type="checkbox" class="toggle">
+                    <div class="spoiler_title">Работа с исполнительными производствами</div>
+                    <div class="icon"></div>
+                    <div class="border"></div>
+                    <div class="spoiler_content">
+                        <div class="spoiler__items">Аудит текущего состояния документов Вашего бизнеса с письменным отчетом</div>
+                </div>
+                <div class="spoiler_wrap">
+                    <input type="checkbox" class="toggle">
+                    <div class="spoiler_title">Досудебное урегулирование споров</div>
+                    <div class="icon"></div>
+                    <div class="border"></div>
+                    <div class="spoiler_content">
+                        <div class="spoiler__items">Зачастую споры, возникающие в отношении вашего бизнеса можно решить без длительных
+                        судебных разбирательств и затрат на квалифицированную юридическую помощь. Юристы нашей команды проведут переговоры
+                        с вашим оппонентом и найдут оптимальное решение вашего вопроса. </div>
+                </div>
+                <div class="spoiler_wrap">
+                    <input type="checkbox" class="toggle">
+                    <div class="spoiler_title">Представительство интересов в судах различной юрисдикции</div>
+                    <div class="icon"></div>
+                    <div class="border"></div>
+                    <div class="spoiler_content">
+                        <div class="spoiler__items">Cоставление искового заявление</div>
+                        <div class="spoiler__items">Составление отзыва/возражение на исковое заявление</div>
+                        <div class="spoiler__items">Истребование документов из коммерческих и некоммерческих организации</div>
+                        <div class="spoiler__items">Составление ходатайств</div>
+                        <div class="spoiler__items">Составление мировых соглашений</div>
+                        <div class="spoiler__items">составление иных документов, необходимых для судебных разбирательств</div>
+                    </div>
+                </div>
+                <div class="spoiler_wrap">
+                    <input type="checkbox" class="toggle">
+                    <div class="spoiler_title">Претензионная работа</div>
+                    <div class="icon"></div>
+                    <div class="border"></div>
+                    <div class="spoiler_content">
+                        <div class="spoiler__items">Составление претензии</div>
+                        <div class="spoiler__items">Составление ответа на претензию</div>
+                    </div>
+                </div>
+                <div class="spoiler_wrap">
+                    <input type="checkbox" class="toggle">
+                    <div class="spoiler_title">Сопровождение сделок</div>
+                    <div class="icon"></div>
+                    <div class="border"></div>
+                    <div class="spoiler_content spoiler__items">
+                        <div class="spoiler__items">Составление договора купли-продажи</div>
+                        <div class="spoiler__items">Составление договора мены</div>
+                        <div class="spoiler__items">Проведение проверок приобретаемого движимого и недвижимого имущества в течении суток с письменным отчетом</div>
+                    </div>
+                </div>
+            </div>
+            <button data-modal-btn="modal1" class="button button__entry">
+                    ЗАПИСАТЬСЯ НА КОНСУЛЬТАЦИЮ
+            </button>
+        </main>
+{% endblock %}
+{% block modalka %}
+<div  data-modal-window="modal1" class="modal">
+        <div class="modal__window">
+
+            <form method="post" class="modal__form" id="form__entry" name="form">
+                {% csrf_token %}
+                <div class="modal__title">Получить консультацию специалиста</div>
+                <div class="form__group">
+                    {{ forms.customer }}
+                    <label class="form__lable">Как к Вам обращаться?</label>
+                </div>
+                <div class="form__group">
+                    {{ forms.phone }}
+                    <label class="form__lable"  placeholder="">Укажите номер телефона</label>
+                </div>
+
+                <div class="form__group">
+                    {{ forms.email }}
+                    <label class="form__lable">Укажите почту</label>
+                </div>
+                <button type="submit" id="button" class="form__button">Отправить</button>
+            </form>
+            <div class="modal__img">
+               <img src="{% static 'business/image/request-modal.png' %}" alt="photo from the modal window">
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,255 @@
+{% extends 'business/basic.html' %}
+
+{% load static %}
+
+{% block style-swiper %}<link rel="stylesheet" href="{% static 'business/style/swipers-bundle.min.css' %}" />{% endblock %}
+
+{% block header %}
+        <header class="header">
+            <div class="header__page _container">
+                <a href="{% url 'main' %}" class="header__logo">SM Helper</a>
+                <ul class="menu__list">
+                    <li class="menu__item">
+                        <a href="#company" class="_menu__links main-menu__link">О компании</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="{% url 'services' %}" class="_menu__links main-menu__link">Услуги</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="{% url 'faq' %}" class="_menu__links main-menu__link">FAQ</a>
+                    </li>
+                </ul>
+                <div class="header__tel">
+                    <a href="tel: +79094025992">+7 (909) 402-59-92</a>
+                </div>
+                <div class="burger-menu">
+                    <a href="#" class="burger-menu__button">
+                        <span class="burger-menu__lines"></span>
+                    </a>
+                    <nav class="burger-menu__nav">
+                        <a href="#company" class="burger-menu__link">О компании</a>
+                        <a href="{% url 'services' %}" class="burger-menu__link">Услуги</a>
+                        <a href="{% url 'faq' %}" class="burger-menu__link">FAQ</a>
+                        <a href="#contacts" class="burger-menu__link">Контакты</a>
+                    </nav>
+                    <div class="burger-menu__overlay"></div>
+                </div>
+                <div class="content__header">
+                    <div class="content__title">
+                        <h1>Команда <br>специалистов <br>сопроводит Ваш <br>бизнес на каждом этапе</h1>
+                    </div>
+                </div>
+                <div class="header__gradient">
+                    <button  data-modal-btn="modal1" class="button__header button__entry">
+                            ЗАПИСАТЬСЯ НА КОНСУЛЬТАЦИЮ
+                    </button>
+                </div>
+            </div>
+        </header>
+{% endblock %}
+
+{% block main %}
+        <main>
+            <section class="company">
+                <div class="main__block _container">
+                    <h1 class="main-block__title" id="company">О компании</h1>
+                    <div class="company__photo-block">
+                        <div class="company__photo">
+                            <div class="background__photo"></div>
+                            <div class="photo__company">
+                                <img src="{% static 'business/image/company-blk.png' %}" alt="photo from the company block">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-block__company-content main__content_text">
+                        {% for el in contentCompany %}
+                        <div class="content__block">
+                            <p class="main-block__text1">
+                                {{ el.contentCompany }}
+                            </p>
+                            <hr class="hr-line hr-company__style">
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+            <section class="business">
+                <div class="main__block _container">
+                    <h1 class="main-block__title">Ведение бизнеса</h1>
+                    <div class="business__content">
+                        <hr class="hr-line11 hr-business__style">
+                        <p class="business__text main__content_text">
+                            Компаниям без юридического опыта приходится сталкиваться с
+                            трудностями, не предполагающих систематического стандарта решения, к каждому
+                            случаю нужен индивидуальный подход. Команда наших
+                            профессионалов остерегая Вас от непрактичных решений, постаивт Ваш бизнес в правильное
+                            направление на любом этапе развития Вашего предприятия.
+                        </p>
+                    </div>
+                    <div class="content__text">
+                        <hr class="hr-line22 hr-business__style">
+                        <div class="content__textb">
+                            <p class="business__text main__content_text">
+                                Доверяя документальное оформление бизнес-процессов своей фирмы
+                                юристам компании “SM Helper”, вы сократите не только расходы компании, но и значительно
+                                сэкономите свое время, получая качественное решения вопроса в кратчайшие сроки. <br>
+                            </p>
+                            <hr class="hr-line33 hr-business__style">
+                            <p class="business__text main__content_text">
+                                Доскональное изучение аспектов дела, систематизация и оценивание фактов, на основе анализа
+                                предоставленных клиентом сведений, позволяет открыто озвучить нашим клиентам предстоящую
+                                перспективу юридического процесса. А специалисты подробно ответят на все интересующие
+                                Вас вопросы.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="business__photo-block  process__photo-mobile">
+                        <div class="business__photo ">
+                            <div class="background__photob"></div>
+                            <div class="photo__business">
+                                <img src="{% static 'business/image/business-blk.png' %}" alt="photo from the business block">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="process">
+                <div class="main__block _container">
+                    <h1 class="main-block__title">Процесс работы</h1>
+                    <div class="process__photo-block">
+                        <div class="process__photo">
+                            <div class="background__photop"></div>
+                            <div class="photo__process">
+                                <img src="{% static 'business/image/process-blk.png' %}" alt="photo from the process block">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="process__content">
+                        <div class="process__block">
+                            <h3 class="process__name">Первичная консультация</h3>
+                            <hr class="hr-process">
+                            <p class="process__description">
+                                На этом этапе намечаются основные направления работы
+                            </p>
+                        </div>
+                        <div class="process__block">
+                            <h3 class="process__name">Изучение документов</h3>
+                            <hr class="hr-process">
+                            <p class="process__description">
+                                Специалисты ознакамливаются и анализируют документы
+                            </p>
+                        </div>
+                        <div class="process__block">
+                            <h3 class="process__name">Подписание договора</h3>
+                            <hr class="hr-process">
+                            <p class="process__description">
+                                Договор о возмездном оказании услуг
+                            </p>
+                            <hr class="hr-process1">
+                            <p class="process__description">
+                                Договор о неразглашении (при необходимости)
+                            </p>
+                        </div>
+                        <div class="process__block">
+                            <h3 class="process__name">Исполнение договора</h3>
+                            <hr class="hr-process">
+                            <p class="process__description">
+                                Выполнение работ, прописанных в договоре
+                            </p>
+                        </div>
+                        <button data-modal-btn="modal1" class="process__button button__entry">
+                                ЗАПИСАТЬСЯ НА КОНСУЛЬТАЦИЮ
+                        </button>
+                    </div>
+                </div>
+            </section>
+            <section class="reviews">
+                <div class="main-block _container">
+                    <h1 class="main-block__title">Отзывы</h1>
+                    <div class="reviews__container">
+
+                        <div class="slide-container swiper">
+                            <div class="slide-content">
+                                <div class="card-wrapper swiper-wrapper">
+
+                                    {% for rev in reviews %}
+                                        <div class="card swiper-slide">
+                                        <div class="card-content">
+                                          <div class="card-content__header">
+                                            <h2 class="name">
+                                                {{ rev.nameuser }}
+                                            </h2>
+                                          </div>
+                                          <hr class="hr__reviews">
+                                            <p class="description">
+                                                {{ rev.reviews }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="swiper-button-next swiper-navBtn"></div>
+                            <div class="swiper-button-prev swiper-navBtn"></div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <button data-modal-btn="modal2" class="reviews__button _container">ОСТАВИТЬ ОТЗЫВ</button>
+            </section>
+        </main>
+{% endblock %}
+
+{% block modalka %}
+    <div  data-modal-window="modal1" class="modal">
+        <div class="modal__window">
+
+            <form method="post" class="modal__form" id="form__entry" name="form">
+                {% csrf_token %}
+                <div class="modal__title">Получить консультацию специалиста</div>
+                <div class="form__group">
+                    {{ forms.customer }}
+                    <label class="form__lable">Как к Вам обращаться?</label>
+                </div>
+                <div class="form__group">
+                    {{ forms.phone }}
+                    <label class="form__lable"  placeholder="">Укажите номер телефона</label>
+                </div>
+
+                <div class="form__group">
+                    {{ forms.email }}
+                    <label class="form__lable">Укажите почту</label>
+                </div>
+                <button type="submit" id="button" class="form__button">Отправить</button>
+            </form>
+            <div class="modal__img">
+               <img src="{% static 'business/image/request-modal.png' %}" alt="photo from the modal window">
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block modal-review %}
+    <div  data-modal-window="modal2" class="modal">
+        <div class="modal__window-otziv">
+            <form class="modal__form" name="form" method="post">
+                {% csrf_token %}
+                <div class="modal__title__otziv">Оставить отзыв</div>
+                <div class="form__group">
+                    {{ form.nameuser }}
+                </div>
+                <div class="form__group">
+                    {{ form.reviews }}
+                </div>
+                <button type="submit" class="form__button">Отправить</button>
+                <span>{{ error }}</span>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script-swiper %} <script src="{% static 'business/script/swipers-bundle.min.js' %}"></script> {% endblock %}
